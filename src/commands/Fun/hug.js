@@ -1,4 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { getColor } from '../../config/bot.js';
 
 // قائمة الصور المتحركة الخاصة بالحضن
 const HUG_GIFS = [
@@ -14,33 +15,36 @@ export default {
         .addUserOption(option =>
             option.setName('target')
                 .setDescription('The user you want to hug')
-                .setRequired(true)), // جعلناه مطلوباً لضمان وجود شخص يتم التفاعل معه
+                .setRequired(true)),
 
     async execute(interaction) {
-        // تأجيل الرد فوراً لمنع انتهاء مهلة التفاعل
         await interaction.deferReply();
 
         const targetUser = interaction.options.getUser('target');
         const user = interaction.user;
 
-        // التحقق إن كان يحضن نفسه
         if (targetUser.id === user.id) {
             return await interaction.editReply({
-                content: `<@${user.id}> tried to hug themselves... lonely? 🫂`
+                content: '❌ You cannot hug yourself! Find someone nice to hug. 🤗'
             });
         }
 
-        // اختيار صورة عشوائية
         const randomGif = HUG_GIFS[Math.floor(Math.random() * HUG_GIFS.length)];
 
-        // بناء الـ Embed مباشرة
-        const embed = new EmbedBuilder()
-            .setColor('#ffb6c1')
-            .setDescription(`🤗 **<@${user.id}>** gave a warm hug to **<@${targetUser.id}>**!`)
-            .setImage(randomGif)
-            .setTimestamp();
+        try {
+            const embed = new EmbedBuilder()
+                .setTitle('🤗 Hug Time!')
+                .setDescription(`**<@${user.id}>** gave a warm hug to **<@${targetUser.id}>**!`)
+                .setImage(randomGif)
+                .setColor(getColor('primary'))
+                .setTimestamp();
 
-        // إرسال النتيجة
-        await interaction.editReply({ embeds: [embed] });
+            await interaction.editReply({ embeds: [embed] });
+        } catch (error) {
+            console.error('Hug command error:', error);
+            await interaction.editReply({
+                content: '❌ An error occurred while executing this action.'
+            });
+        }
     },
 };
