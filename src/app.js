@@ -1,5 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
-import { successEmbed } from '../../utils/embeds.js';
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import { logger } from '../../utils/logger.js';
 import { replyUserError, ErrorTypes } from '../../utils/errorHandler.js';
 import { InteractionHelper } from '../../utils/interactionHelper.js';
@@ -22,7 +21,6 @@ export default {
                 .setRequired(true)),
 
     async execute(interaction) {
-        // استخدام الطريقة الآمنة لتأجيل الرد المعتمدة في بوتك
         const deferSuccess = await InteractionHelper.safeDefer(interaction);
         if (!deferSuccess) {
             logger.warn(`Hug interaction defer failed`, {
@@ -48,13 +46,12 @@ export default {
         const randomGif = HUG_GIFS[Math.floor(Math.random() * HUG_GIFS.length)];
 
         try {
-            const embed = successEmbed(
-                '🤗 Hug Time!',
-                `**<@${user.id}>** gave a warm hug to **<@${targetUser.id}>**!`
-            );
-            
-            embed.setImage(randomGif);
-            embed.setColor(getColor('primary'));
+            const embed = new EmbedBuilder()
+                .setTitle('🤗 Hug Time!')
+                .setDescription(`**<@${user.id}>** gave a warm hug to **<@${targetUser.id}>**!`)
+                .setImage(randomGif)
+                .setColor(getColor('primary'))
+                .setTimestamp();
 
             await InteractionHelper.safeEditReply(interaction, { embeds: [embed] });
 
