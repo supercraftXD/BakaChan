@@ -146,7 +146,7 @@ export const botConfig = {
       icon: null,
     },
     // Default thumbnail URL for embeds (null = no thumbnail).
-    thumbnail: null,
+    thumbnail: "https://cdn.discordapp.com/banners/1549359953385361438/4e3988ff51e14b2f8fdbbbff2b4d9dcf.webp?size=1024",
     author: {
       // Optional default embed author block.
       name: null,
