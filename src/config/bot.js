@@ -143,14 +143,14 @@ export const botConfig = {
       // Default footer text used in bot embeds.
       text: "Clouds Bot",
       // Footer icon URL (null = no icon).
-      icon: null,
+      icon: "https://i.pinimg.com/736x/68/13/f1/6813f1e0a60c0c574fca5ca9d23efaeb.jpg",
     },
     // Default thumbnail URL for embeds (null = no thumbnail).
     thumbnail: "https://cdn.discordapp.com/banners/1549359953385361438/4e3988ff51e14b2f8fdbbbff2b4d9dcf.webp?size=1024",
     author: {
       // Optional default embed author block.
-      name: null,
-      icon: null,
+      name: "Clouds Bot",
+      icon: "https://i.pinimg.com/1200x/08/fb/c9/08fbc91bf9a850e3a5c13c8df0faa817.jpg",
       url: null,
     },
   },
