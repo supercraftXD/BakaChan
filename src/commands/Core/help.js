@@ -101,7 +101,7 @@ export async function createInitialHelpMenu(client) {
             },
             {
                 name: '\u200B',
-                value: `-# ${botName} is [Youtube](https://www.youtube.com/watch?v=xRkW6sPfX90)`,
+                value: `-# ${botName} || [Youtube](https://www.youtube.com/watch?v=xRkW6sPfX90)`,
                 inline: false,
             },
         ],
